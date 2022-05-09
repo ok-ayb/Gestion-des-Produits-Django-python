@@ -1,0 +1,40 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <img src="{% static '/images/pr.png' %}" width="30" height="30">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{%  url 'index' %}">Produits </a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{%  url 'formP' %}">Ajouter un produit </a>
+        </li>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{%  url 'formCo' %}">Ajouter une commande  </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{%  url 'formCa' %}">Ajouter une Categorie  </a>
+        </li>
+
+
+      </ul>
+      <form  class="d-flex"  method="post" action="{%  url 'searchProduct' %}">
+        {% csrf_token %}
+        <input class="form-control me-3" type="search" placeholder="chercher un produit"  name="search">
+        <button  class="btn btn-outline-success me-3" type="submit" >produit</button>
+      </form>
+      <form  class="d-flex"  method="post"  action="{%  url 'cmdParPersonne' %}">
+        {% csrf_token %}
+        <input class="form-control me-3 " type="search" placeholder="commande par personne "  name="searchC" >
+        <button  class="btn btn-outline-success" type="submit" >Commande</button>
+      </form>
+    </div>
+  </div>
+</nav>
+

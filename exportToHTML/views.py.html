@@ -1,0 +1,103 @@
+<html>
+<head>
+<title>views.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+views.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">django.contrib </span><span class="s0">import </span><span class="s1">messages</span>
+<span class="s0">from </span><span class="s1">django.core.paginator </span><span class="s0">import </span><span class="s1">Paginator</span>
+<span class="s0">from </span><span class="s1">django.db.models </span><span class="s0">import </span><span class="s1">Q</span>
+<span class="s0">from </span><span class="s1">django.http </span><span class="s0">import </span><span class="s1">HttpResponse</span>
+<span class="s0">from </span><span class="s1">django.shortcuts </span><span class="s0">import </span><span class="s1">render</span><span class="s0">, </span><span class="s1">redirect</span>
+
+<span class="s2"># Create your views here.</span>
+<span class="s0">from </span><span class="s1">django.template.context_processors </span><span class="s0">import </span><span class="s1">request</span>
+<span class="s0">from </span><span class="s1">ouakki_ayoub.models </span><span class="s0">import </span><span class="s1">*</span>
+<span class="s0">from </span><span class="s1">ouakki_ayoub.models </span><span class="s0">import </span><span class="s1">Categorie</span>
+<span class="s0">from </span><span class="s1">ouakki_ayoub.models </span><span class="s0">import </span><span class="s1">Commande</span>
+<span class="s0">from </span><span class="s1">.forms </span><span class="s0">import </span><span class="s1">*</span>
+<span class="s0">from </span><span class="s1">ouakki_ayoub.models </span><span class="s0">import </span><span class="s1">*</span>
+
+<span class="s0">from </span><span class="s1">.models </span><span class="s0">import </span><span class="s1">Produit</span>
+
+
+<span class="s0">def </span><span class="s1">index(request):</span>
+    <span class="s1">resultsdisplay = Produit.objects.all()</span>
+    <span class="s1">p = Paginator(resultsdisplay</span><span class="s0">, </span><span class="s3">10</span><span class="s1">)</span>
+    <span class="s1">page = request.GET.get(</span><span class="s4">'page'</span><span class="s1">)</span>
+    <span class="s1">prd = p.get_page(page)</span>
+
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s4">'index.html'</span><span class="s0">, </span><span class="s1">{</span><span class="s4">'Produit'</span><span class="s1">: prd})</span>
+
+
+<span class="s0">def </span><span class="s1">search_Product(request):</span>
+    <span class="s0">if </span><span class="s1">request.method == </span><span class="s4">&quot;POST&quot;</span><span class="s1">:</span>
+        <span class="s1">searched = request.POST[</span><span class="s4">'search'</span><span class="s1">]</span>
+        <span class="s1">produits = Produit.objects.filter(</span>
+            <span class="s1">Q(nomProduit__contains=searched) | Q(refProduit__contains=searched) | Q(id__contains=searched))</span>
+
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s4">'searchProduct.html'</span><span class="s0">, </span><span class="s1">{</span><span class="s4">'searched'</span><span class="s1">: searched</span><span class="s0">, </span><span class="s4">'produits'</span><span class="s1">: produits})</span>
+
+
+<span class="s0">def </span><span class="s1">commandParPersonne(request):</span>
+    <span class="s0">if </span><span class="s1">request.method == </span><span class="s4">&quot;POST&quot;</span><span class="s1">:</span>
+        <span class="s1">searchedC = request.POST[</span><span class="s4">'searchC'</span><span class="s1">]</span>
+        <span class="s1">personnes = Commande.objects.filter(client=searchedC)</span>
+
+        <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s4">'commandeParPersonne.html'</span><span class="s0">, </span><span class="s1">{</span><span class="s4">'searchedC'</span><span class="s1">: searchedC</span><span class="s0">, </span><span class="s4">'personnes'</span><span class="s1">: personnes})</span>
+
+
+<span class="s0">def </span><span class="s1">detail(request</span><span class="s0">, </span><span class="s1">id):</span>
+    <span class="s1">commandes=</span><span class="s0">None</span>
+    <span class="s0">try</span><span class="s1">:</span>
+        <span class="s1">context = Produit.objects.get(id=id)</span>
+        <span class="s1">commandes = Commande.objects.get(id_Co=id)</span>
+        <span class="s1">var = </span><span class="s3">1</span>
+    <span class="s0">except </span><span class="s1">Commande.DoesNotExist  :</span>
+         <span class="s1">var = </span><span class="s3">0</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s4">'detail.html'</span><span class="s0">, </span><span class="s1">{</span><span class="s4">'commandes'</span><span class="s1">: commandes</span><span class="s0">, </span><span class="s4">'context'</span><span class="s1">: context</span><span class="s0">, </span><span class="s4">'var'</span><span class="s1">: var})</span>
+
+
+<span class="s0">def </span><span class="s1">prodF(request):</span>
+    <span class="s0">if </span><span class="s1">request.method == </span><span class="s4">&quot;POST&quot;</span><span class="s1">:</span>
+        <span class="s1">form = produitF(request.POST).save()</span>
+        <span class="s0">return </span><span class="s1">redirect(</span><span class="s4">'/ouakki_ayoub'</span><span class="s1">)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">form = produitF</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s4">'formP.html'</span><span class="s0">, </span><span class="s1">{</span><span class="s4">'form'</span><span class="s1">: form})</span>
+
+
+<span class="s0">def </span><span class="s1">CmdF(request):</span>
+    <span class="s0">if </span><span class="s1">request.method == </span><span class="s4">&quot;POST&quot;</span><span class="s1">:</span>
+        <span class="s1">form = CommandeF(request.POST).save()</span>
+        <span class="s1">messages.success(request</span><span class="s0">, </span><span class="s4">'l ajoute du commande est bien effectuer'</span><span class="s1">)</span>
+        <span class="s0">return </span><span class="s1">redirect(</span><span class="s4">'/ouakki_ayoub'</span><span class="s1">)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">form = CommandeF</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s4">'formCo.html'</span><span class="s0">, </span><span class="s1">{</span><span class="s4">'form'</span><span class="s1">: form})</span>
+
+
+<span class="s0">def </span><span class="s1">CatF(request):</span>
+    <span class="s0">if </span><span class="s1">request.method == </span><span class="s4">&quot;POST&quot;</span><span class="s1">:</span>
+        <span class="s1">form = CategorieForm(request.POST).save()</span>
+        <span class="s0">return </span><span class="s1">redirect(</span><span class="s4">'/ouakki_ayoub'</span><span class="s1">)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">form = CategorieForm</span>
+    <span class="s0">return </span><span class="s1">render(request</span><span class="s0">, </span><span class="s4">'formCa.html'</span><span class="s0">, </span><span class="s1">{</span><span class="s4">'form'</span><span class="s1">: form})</span>
+
+
+</pre>
+</body>
+</html>

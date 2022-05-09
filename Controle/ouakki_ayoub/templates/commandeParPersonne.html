@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+{% if searchedC %}
+<h1> you searched for {{searchedC}}</h1>
+{% endif %}
+<br/>
+<div class="container">
+    </br>
+    </br>
+<table class="table">
+  <thead class="thead-light">
+    <tr class="table-active">
+      <th scope="col"> id_Co</th>
+      <th scope="col"> referenceCmd</th>
+      <th scope="col">ndateCmd</th>
+      <th scope="col">produit</th>
+       <th scope="col">client</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for p in personnes %}
+    <tr>
+      <th scope="row">{{p.id_Co}}</th>
+        <td>{{p.referenceCmd}}</td>
+        <td>{{p.dateCmd}}</td>
+        <td>{{p.produit.nomProduit}}</td>
+      <td>{{p.client.nom}}</td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

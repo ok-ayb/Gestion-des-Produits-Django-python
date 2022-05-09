@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+
+
+
+
+{% block content %}
+<div class="container">
+    </br>
+    </br>
+<table class="table">
+  <thead class="thead-light">
+    <tr class="table-active">
+      <th scope="col">nom du produit </th>
+      <th scope="col">Reference du produit </th>
+      <th scope="col">Date de production</th>
+      <th scope="col">nom de categorie </th>
+      <th scope="col"> referenceCmd </th>
+      <th scope="col">dateCmd </th>
+      <th scope="col">Client</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% if var == 1 %}
+       <th scope="row">{{context.nomProduit}}</th>
+       <td>{{context.refProduit}}</td>
+      <td>{{context.dateProduction}}</td>
+      <td>{{context.categorie.nomCategorie}}</td>
+      <td>{{commandes.referenceCmd}}</td>
+      <td>{{commandes.dateCmd}} </td>
+      <td>{{commandes.client.nom}} </td>
+      {% else %}
+      <h1> this product did not order !!</h1>
+      <td>{{context.refProduit}}</td>
+      <td>{{context.dateProduction}}</td>
+      <td>{{context.categorie.nomCategorie}}</td>
+      <td><p>no commande</p></td>
+      <td><p>no Commande</p> </td>
+      <td><p>no commande</p></td>
+      <td><p>no commande</p></td>
+      {% endif %}
+
+    </tr>
+  </tbody>
+</table>
+</div>
+{% endblock %}

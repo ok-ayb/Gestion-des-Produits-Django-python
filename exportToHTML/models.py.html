@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>models.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+models.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">django.db </span><span class="s0">import </span><span class="s1">models</span>
+
+
+<span class="s2"># Create your models here.</span>
+
+<span class="s0">class </span><span class="s1">Categorie(models.Model):</span>
+    <span class="s1">id_Ca = models.IntegerField(primary_key=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">nomCategorie = models.CharField(max_length=</span><span class="s3">20</span><span class="s1">)</span>
+
+
+    <span class="s0">def </span><span class="s1">__str__(self):</span>
+        <span class="s0">return </span><span class="s1">self.nomCategorie</span>
+
+<span class="s0">class </span><span class="s1">Produit(models.Model):</span>
+    <span class="s1">id = models.IntegerField(primary_key=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">refProduit = models.CharField(max_length=</span><span class="s3">20</span><span class="s1">)</span>
+    <span class="s1">nomProduit = models.CharField(max_length=</span><span class="s3">20</span><span class="s1">)</span>
+    <span class="s1">dateProduction = models.DateField()</span>
+    <span class="s1">categorie = models.ForeignKey(Categorie</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">prix = models.FloatField()</span>
+
+    <span class="s0">def </span><span class="s1">__str__(self):</span>
+        <span class="s0">return </span><span class="s1">self.nomProduit</span>
+
+<span class="s0">class </span><span class="s1">Personne(models.Model):</span>
+    <span class="s1">id_P = models.IntegerField(primary_key=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">nom = models.CharField(max_length=</span><span class="s3">20</span><span class="s1">)</span>
+    <span class="s1">prenom = models.CharField(max_length=</span><span class="s3">20</span><span class="s1">)</span>
+    <span class="s1">email = models.EmailField(max_length=</span><span class="s3">20</span><span class="s1">)</span>
+    <span class="s0">def </span><span class="s1">__str__(self):</span>
+        <span class="s0">return </span><span class="s1">self.nom</span>
+
+
+
+
+<span class="s0">class </span><span class="s1">Commande(models.Model):</span>
+    <span class="s1">id_Co = models.IntegerField(primary_key=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">referenceCmd = models.CharField(max_length=</span><span class="s3">20</span><span class="s1">)</span>
+    <span class="s1">dateCmd = models.DateField()</span>
+    <span class="s1">produit = models.ForeignKey(Produit</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">client=models.OneToOneField(Personne</span><span class="s0">,</span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s0">def </span><span class="s1">__str__(self):</span>
+        <span class="s0">return </span><span class="s1">self.referenceCmd</span>
+
+
+</pre>
+</body>
+</html>

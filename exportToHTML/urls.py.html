@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>urls.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+urls.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">django.urls </span><span class="s0">import </span><span class="s1">path</span>
+
+<span class="s0">from </span><span class="s1">. </span><span class="s0">import </span><span class="s1">views</span>
+
+<span class="s1">urlpatterns = [</span>
+    <span class="s1">path(</span><span class="s2">''</span><span class="s0">, </span><span class="s1">views.index</span><span class="s0">, </span><span class="s1">name=</span><span class="s2">'index'</span><span class="s1">)</span><span class="s0">,</span>
+    <span class="s1">path(</span><span class="s2">'searchProduct/'</span><span class="s0">, </span><span class="s1">views.search_Product</span><span class="s0">, </span><span class="s1">name=</span><span class="s2">'searchProduct'</span><span class="s1">)</span><span class="s0">,</span>
+    <span class="s1">path(</span><span class="s2">'commandeParPersonne/'</span><span class="s0">, </span><span class="s1">views.commandParPersonne</span><span class="s0">, </span><span class="s1">name=</span><span class="s2">'cmdParPersonne'</span><span class="s1">)</span><span class="s0">,</span>
+    <span class="s1">path(</span><span class="s2">'detail/&lt;int:id&gt;'</span><span class="s0">, </span><span class="s1">views.detail</span><span class="s0">, </span><span class="s1">name=</span><span class="s2">'detailP'</span><span class="s1">)</span><span class="s0">,</span>
+    <span class="s1">path(</span><span class="s2">'formP/'</span><span class="s0">, </span><span class="s1">views.prodF</span><span class="s0">, </span><span class="s1">name=</span><span class="s2">'formP'</span><span class="s1">)</span><span class="s0">,</span>
+    <span class="s1">path(</span><span class="s2">'formCo/'</span><span class="s0">, </span><span class="s1">views.CmdF</span><span class="s0">, </span><span class="s1">name=</span><span class="s2">'formCo'</span><span class="s1">)</span><span class="s0">,</span>
+    <span class="s1">path(</span><span class="s2">'formCa/'</span><span class="s0">, </span><span class="s1">views.CatF</span><span class="s0">, </span><span class="s1">name=</span><span class="s2">'formCa'</span><span class="s1">)</span><span class="s0">,</span>
+<span class="s1">]</span></pre>
+</body>
+</html>

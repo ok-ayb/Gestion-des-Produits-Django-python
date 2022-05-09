@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+{% block content %}
+<h1 class="p-5">Liste des Produits  : </h1>
+<div class="container">
+    </br>
+    </br>
+<table class="table">
+  <thead class="thead-light">
+    <tr class="table-active">
+      <th scope="col">id</th>
+      <th scope="col">Reference du produit </th>
+      <th scope="col">nom du produit </th>
+      <th scope="col">Date de production </th>
+      <th scope="col">Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for getdata in Produit %}
+    <tr>
+      <th scope="row">{{getdata.id}}</th>
+        <td>{{getdata.refProduit}}</td>
+        <td>{{getdata.nomProduit}}</td>
+        <td>{{getdata.dateProduction}}</td>
+        <td>{{getdata.prix}}</td>
+      <td><a  href="detail/{{getdata.id}}" class="btn btn-success">detail</a></td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+</div>
+<br/><br/>
+<nav>
+  <ul class="pagination justify-content-center">
+    {% if Produit.has_previous %}
+    <li class="page-item">
+      <a href="?page={{ Produit.previous_page_number }}" class="page-link">
+        <span aria-hidden="true" >&laquo;</span>
+      </a>
+    </li>
+    {% endif %}
+    <li class="page-item"><p class="page-link text-muted"> Page{{ Produit.number }} of {{ Produit.paginator.num_pages }}. </p></li>
+    {% if Produit.has_next %}
+    <li class="page-item">
+      <a href="?page={{ Produit.next_page_number }}" class="page-link">
+        <span aria-hidden="true" >&raquo;</span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}

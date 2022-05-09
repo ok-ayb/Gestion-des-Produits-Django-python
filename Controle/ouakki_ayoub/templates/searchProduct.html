@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+
+
+{% block content %}
+
+
+{% if searched %}
+<h1> you searched for {{searched}}</h1>
+{% endif %}
+<br/>
+<div class="container">
+    </br>
+    </br>
+<table class="table">
+  <thead class="thead-light">
+    <tr class="table-active">
+      <th scope="col">id</th>
+      <th scope="col">Reference du produit </th>
+      <th scope="col">nom du produit </th>
+      <th scope="col">Date de production </th>
+      <th scope="col">Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for produit in produits %}
+    <tr>
+      <th scope="row">{{produit.id}}</th>
+        <td>{{produit.refProduit}}</td>
+        <td>{{produit.nomProduit}}</td>
+        <td>{{produit.dateProduction}}</td>
+        <td>{{produits.prix}}</td>
+      <td><a  href="detail/" class="btn btn-success">detail</a></td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

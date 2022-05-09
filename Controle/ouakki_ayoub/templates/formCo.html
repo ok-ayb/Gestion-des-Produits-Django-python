@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+{% block content %}
+<h1 class="p-5">Ajouter Une Commande  : </h1>
+<div class="container">
+<form method="post" class="post-form">
+  {% csrf_token %}
+  <div class="d-flex justify-content-start">{{form.as_p}}
+  </div>
+  <button type="submit" class="btn btn-success">Ajouter Une Commande </button>
+</form>
+  </div>
+{% endblock %}
+
+
